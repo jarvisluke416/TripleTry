@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memory Game with Hidden Background</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- START SCREEN -->
+  <div id="start-screen">
+    <h2>Enter Screen Name</h2>
+    <input type="text" id="screen-name-input" placeholder="Enter your name" />
+    <button id="start-btn">Start Game</button>
+  </div>
+
+  <!-- GAME BOARD -->
+  <div id="game-board" style="display: none;">
+    <div id="reveal-overlay"></div>
+    <div id="word-layer"></div>
+  </div>
+
+  <!-- POPUP -->
+  <div id="turn-popup" style="display: none;" class="popup">
+    <div class="popup-content">
+      <p id="popup-message">Your turn is over. Choose an action:</p>
+      <button id="pass-btn">Pass</button>
+      <button id="guess-word-btn">Guess Word</button>
+      <button id="guess-image-btn">Name the Picture</button>
+      <input type="text" id="popup-input" placeholder="Type your answer..." style="display: none;" />
+      <button id="submit-guess-btn" style="display: none;">Submit</button>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

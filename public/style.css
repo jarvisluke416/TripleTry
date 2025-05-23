@@ -1,0 +1,185 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#game-board {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://media.newyorker.com/photos/590953c71c7a8e33fb38ae92/master/w_1920,c_limit/leary-thumb-425x295-80545.jpg');
+  background-size: cover;
+  background-position: center;
+  perspective: 1000px;
+  display: none;
+  /* ensure cards are above background */
+  z-index: 0;
+}
+
+#reveal-overlay {
+  display: none !important; /* Always keep hidden */
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url('your-background-image.png');
+  background-size: cover;
+  z-index: 0; /* below cards and letter cells */
+  pointer-events: none; /* so it doesn't interfere */
+}
+
+.card {
+  position: absolute;
+  width: 2vw;
+  height: 5vh;
+  transform-style: preserve-3d;
+  transition: transform 0.5s, opacity 0.5s;
+  cursor: pointer;
+  background-color: #ffcc00; /* solid back color to fully cover background */
+  box-sizing: border-box;
+  z-index: 10; /* higher than background and letter cells */
+  margin: -0.25px;
+  border: 1px solid #000;
+  /* prevent background bleed */
+  backface-visibility: hidden;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.removed {
+  opacity: 0;
+  pointer-events: none;
+  /* When removed, background and letter can show */
+  z-index: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.card-inner.card-back {
+  background-color: #ffcc00;
+  border: 1px solid #000;
+  /* make sure no transparency */
+}
+
+.card-inner.card-front {
+  transform: rotateY(180deg);
+  background-color: #ffffff;
+  border: 1px solid #000;
+}
+
+#word-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5; /* below cards, above background */
+}
+
+.letter-cell {
+  position: absolute;
+  width: 2vw;
+  height: 5vh;
+  font-size: 1.5vh;
+  font-weight: bold;
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0 3px #000;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 3px;
+  z-index: 5; /* same as word-layer */
+}
+
+/* --- Start screen --- */
+#start-screen {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 10000;
+}
+
+#start-screen input {
+  font-size: 1.2rem;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
+}
+
+#start-screen button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#start-screen button:hover {
+  background-color: #218838;
+}
+
+/* --- Popup --- */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.popup-content input {
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 5px;
+  width: 80%;
+}
+
+.hide-front .card-front {
+  visibility: hidden;
+}
+
+#game-board {
+  transition: background-color 0.3s ease;
+}
+
+.hide-background {
+  background-image: none !important;
+  background-color: black !important; /* or any solid color you prefer */
+}
