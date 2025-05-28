@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Word Search</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+      const scoreboard = document.getElementById('scoreboard');
+      let timeoutId = null;
+   
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key.toLowerCase() === 's') {
+          e.preventDefault(); // prevent browser save dialog
+   
+          // Show scoreboard
+          scoreboard.style.display = 'block';
+   
+          // Clear any existing timeout to avoid overlap
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+   
+          // Hide after 5 seconds
+          timeoutId = setTimeout(() => {
+            scoreboard.style.display = 'none';
+          }, 5000);
+        }
+      });
+    </script>
+</head>
+<body>
+    <div id="start-screen">
+        <h1>Welcome to Memory Word Search!</h1>
+        <input type="text" id="screen-name-input" placeholder="Enter your screen name">
+        <button id="start-btn">Start Game</button>
+    </div>
+    <div id="game-screen-container">
+        <div id="game-board">
+            </div>
+        <div id="word-layer" class="debug-layer">
+            </div>
+        <!--<div id="turn-notification">
+            </div>-->
+    <div id="turn-popup" style="display: none;">
+            <div class="popup-content">
+            <div id="scoreboard"><h2>Scores</h2>
+            </div>
+                <p id="popup-message">You made a mismatch! Choose your next action:</p>
+                <button id="pass-btn">Pass</button>
+                <button id="guess-word-btn">Guess Word</button>
+                <button id="guess-image-btn">Solve Picture</button>
+                <input type="text" id="popup-input" placeholder="Enter your guess" style="display: none;">
+                <button id="submit-guess-btn" style="display: none;">Submit Guess</button>
+            </div>
+        </div>
+<div id="reveal-overlay" style="display: none;"></div>
+    </div>
+    <div id="points-popup" class="points-popup">
+      50pts!!!
+  </div>
+    <div id="notification-popup" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+background: #222; color: #fff; padding: 15px; border-radius: 10px; font-size: 18px; z-index: 1000;"></div>
+<script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
